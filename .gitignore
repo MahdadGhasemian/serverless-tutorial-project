@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+build
+dist
+.env
+.env.production
+environments.json
+.package.json
+jspm_packages
+.serverless
+/UploadData/

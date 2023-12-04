@@ -1,0 +1,25 @@
+{
+  "name": "serverless-tutorial-project",
+  "version": "1.0.0",
+  "description": "Some example to run serverless api (AWS)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MahdadGhasemian/serverless-tutorial-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MahdadGhasemian/serverless-tutorial-project/issues"
+  },
+  "homepage": "https://github.com/MahdadGhasemian/serverless-tutorial-project#readme",
+  "dependencies": {
+    "serverless-s3-sync": "^3.2.0",
+    "serverless-webpack": "^5.13.0",
+    "webpack": "^5.89.0"
+  }
+}
