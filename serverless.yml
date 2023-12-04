@@ -51,7 +51,7 @@ plugins:
   - serverless-webpack
 
 custom:
-  tableName: player-points
+  tableName: player-points-931988
   bucketName: serverless-tutorial-project-931988
   s3Sync:
     - bucketName: ${self:custom.bucketName}
