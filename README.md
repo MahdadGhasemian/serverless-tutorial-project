@@ -30,59 +30,59 @@ Some example to run serverless api (AWS)
 - GET - https://returned-amazon-base-url/dev/get-user/{ID}
 
 ```bash
-    curl --location --request GET 'https://returned-amazon-base-url/dev/get-user/1234' \
-        --header 'x-api-key: returned_api_key'
+curl --location --request GET 'https://returned-amazon-base-url/dev/get-user/1234' \
+    --header 'x-api-key: returned_api_key'
 ```
 
 - GET - https://returned-amazon-base-url/dev/get-player-score/{ID}
 
 ```bash
-    curl --location --request GET 'https://returned-amazon-base-url/dev/get-user/1234' \
-        --header 'x-api-key: returned_api_key'
+curl --location --request GET 'https://returned-amazon-base-url/dev/get-user/1234' \
+    --header 'x-api-key: returned_api_key'
 ```
 
 - POST - https://returned-amazon-base-url/dev/create-player-score/{ID}
 
 ```bash
-    curl --location --request POST 'https://returned-amazon-base-url/dev/create-player-score/4521545' \
-        --header 'Content-Type: application/json' \
-        --data-raw '{
-            "Name": "Sarah",
-            "Score": 15
-        }'
+curl --location --request POST 'https://returned-amazon-base-url/dev/create-player-score/4521545' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "Name": "Sarah",
+        "Score": 15
+    }'
 ```
 
 - POST - https://returned-amazon-base-url/dev/create-file/{fileName}
 
 ```bash
-    curl --location --request POST 'https://returned-amazon-base-url/dev/create-file/car2.json' \
-        --header 'Content-Type: application/json' \
-        --data-raw '{
-            "color": "Red"
-        }'
+curl --location --request POST 'https://returned-amazon-base-url/dev/create-file/car2.json' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "color": "Red"
+    }'
 ```
 
 - GET - https://returned-amazon-base-url/dev/get-file/{fileName}
 
 ```bash
-    curl --location --request GET 'https://returned-amazon-base-url/dev/get-file/car2.json'
+curl --location --request GET 'https://returned-amazon-base-url/dev/get-file/car2.json'
 ```
 
 - POST - https://returned-amazon-base-url/dev/send-email
 
 ```bash
-    curl --location --request POST 'https://returned-amazon-base-url/dev/send-email' \
-        --header 'Content-Type: application/json' \
-        --data-raw '{
-            "to": "example@gmail.com",
-            "from": "example@gmail.com",
-            "subject": "Test Email",
-            "text": "Hi there, this is a message sent through my API"
-        }'
+curl --location --request POST 'https://returned-amazon-base-url/dev/send-email' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "to": "example@gmail.com",
+        "from": "example@gmail.com",
+        "subject": "Test Email",
+        "text": "Hi there, this is a message sent through my API"
+    }'
 ```
 
 - ANY - https://returned-amazon-base-url/dev/chuck-norris/{proxy+}
 
 ```bash
-    curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris/ANY'
+curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris/ANY'
 ```
