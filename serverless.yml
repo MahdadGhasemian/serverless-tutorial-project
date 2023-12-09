@@ -1,4 +1,3 @@
-
 service: serverless-tutorial-project
 
 frameworkVersion: "3"
@@ -8,52 +7,21 @@ provider:
   runtime: nodejs18.x
   profile: serverlessUser
   region: us-east-1
-  environment:
-    tableName: ${self:custom.tableName}
   stage: dev
   iam:
     role:
       statements:
         - Effect: "Allow"
           Action:
-            - dynamodb:*
+            - sns:SetSMSAttributes
+            - sns:Publish
           Resource: "*"
 
-custom:
-  tableName: websocket-users-931988
-
 functions:
-  websocket-connect:
-    handler: lambdas/websockets/connect.handler
+  sendSMS:
+    handler: lambdas/endpoints/sendSMS.handler
     events:
-      - websocket:
-          route: $connect
-  websocket-disconnect:
-    handler: lambdas/websockets/disconnect.handler
-    events:
-      - websocket:
-          route: $disconnect
-  websocket-default:
-    handler: lambdas/websockets/default.handler
-    events:
-      - websocket:
-          route: $default
-  websocket-message:
-    handler: lambdas/websockets/message.handler
-    events:
-      - websocket:
-          route: message
-
-resources:
-  Resources:
-    WebsocketUserTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:custom.tableName}
-        AttributeDefinitions:
-          - AttributeName: ID
-            AttributeType: S
-        KeySchema:
-          - AttributeName: ID
-            KeyType: HASH
-        BillingMode: PAY_PER_REQUEST
+      - http:
+          path: send-sms
+          method: POST
+          cors: true
