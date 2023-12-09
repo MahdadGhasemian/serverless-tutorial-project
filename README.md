@@ -113,3 +113,16 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/send-sms' \
         "message": "This is a message from my serverless API!"
     }'
 ```
+
+## Comprehend
+
+#### endpoints:
+
+- POST - https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/analyse
+```bash
+curl --location --request POST 'https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/analyse' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "text": "This is a simple text to test the api"
+    }'
+```
