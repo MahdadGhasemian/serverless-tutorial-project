@@ -46,6 +46,7 @@ resources:
       Type: AWS::CloudFront::Distribution
       Properties:
         DistributionConfig:
+          PriceClass: PriceClass_100
           Origins:
             - DomainName: ${self:custom.bucketName}.s3.amazonaws.com
               Id: ReactApp
