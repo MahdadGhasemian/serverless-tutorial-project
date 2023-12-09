@@ -138,3 +138,7 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/analyse' \
 [News API](https://newsapi.org/)
 
 ## ReactApp
+
+## Hooks
+
+- The 'createPlayerScore.js' and 'getPlayerScore.js' files have been changed to use hooks.
