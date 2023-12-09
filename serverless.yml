@@ -13,15 +13,14 @@ provider:
       statements:
         - Effect: "Allow"
           Action:
-            - sns:SetSMSAttributes
-            - sns:Publish
+            - comprehend:*
           Resource: "*"
 
 functions:
-  sendSMS:
-    handler: lambdas/endpoints/sendSMS.handler
+  analyse:
+    handler: lambdas/endpoints/analyse.handler
     events:
       - http:
-          path: send-sms
+          path: analyse
           method: POST
           cors: true
