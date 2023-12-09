@@ -13,14 +13,11 @@ provider:
       statements:
         - Effect: "Allow"
           Action:
-            - comprehend:*
+            - ses:*
           Resource: "*"
 
 functions:
-  analyse:
-    handler: lambdas/endpoints/analyse.handler
+  sendReminder:
+    handler: lambdas/scheduleTasks/reminderEmail.handler
     events:
-      - http:
-          path: analyse
-          method: POST
-          cors: true
+      - schedule: corn(0 8 ? * 7 *)
