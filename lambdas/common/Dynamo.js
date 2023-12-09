@@ -40,9 +40,9 @@ const Dynamo = {
         return data;
     },
 
-    async update({ TableName, primaryKey, primaryKeyValue, updateKey, updateValue }) {
+    async update({ tableName, primaryKey, primaryKeyValue, updateKey, updateValue }) {
         const params = {
-            TableName,
+            tableName,
             Key: {
                 [primaryKey]: primaryKeyValue
             },
