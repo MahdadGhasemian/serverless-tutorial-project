@@ -136,3 +136,5 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/analyse' \
 
 [Cron Format](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html)
 [News API](https://newsapi.org/)
+
+## ReactApp

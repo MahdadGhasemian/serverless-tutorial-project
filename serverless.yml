@@ -6,7 +6,8 @@ provider:
   name: aws
   runtime: nodejs18.x
   profile: serverlessUser
-  region: us-east-1
+  region: eu-west-1
+  # region: us-east-1
   stage: dev
 
 plugins:
@@ -45,6 +46,7 @@ resources:
       Type: AWS::CloudFront::Distribution
       Properties:
         DistributionConfig:
+          PriceClass: PriceClass_100
           Origins:
             - DomainName: ${self:custom.bucketName}.s3.amazonaws.com
               Id: ReactApp
