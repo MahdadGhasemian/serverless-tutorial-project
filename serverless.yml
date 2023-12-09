@@ -1,3 +1,4 @@
+
 service: serverless-tutorial-project
 
 frameworkVersion: "3"
@@ -6,74 +7,141 @@ provider:
   name: aws
   runtime: nodejs18.x
   profile: serverlessUser
-  region: eu-west-1
-  # region: us-east-1
+  region: us-east-1
+  environment:
+    tableName: ${self:custom.tableName}
+    bucketName: ${self:custom.bucketName}
   stage: dev
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - dynamodb:*
+            - s3:*
+            - ses:*
+          Resource: "*"
+  apiGateway:
+    apiKeys:
+      - free:
+          - name: "x-api-key-free"
+      - paid:
+          - name: "x-api-key-paid"
+    usagePlan:
+      - free:
+          quota:
+            limit: 5000
+            period: MONTH
+          throttle:
+            burstLimit: 200
+            rateLimit: 100
+      - paid:
+          quota:
+            limit: 50000
+            period: MONTH
+          throttle:
+            burstLimit: 2000
+            rateLimit: 1000
+
+package:
+  individually: true
 
 plugins:
   - serverless-s3-sync
+  - serverless-webpack
 
 custom:
-  bucketName: serverless-react-app-931988
+  tableName: player-points-931988
+  bucketName: serverless-tutorial-project-931988
   s3Sync:
     - bucketName: ${self:custom.bucketName}
-      localDir: demo-app/build/
+      localDir: UploadData
+
+functions:
+  getUser:
+    handler: lambdas/endpoints/getUser.handler
+    events:
+      - http:
+          path: get-user/{ID}
+          method: GET
+          cors: true
+          private: true
+  getPlayerScore:
+    handler: lambdas/endpoints/getPlayerScore.handler
+    events:
+      - http:
+          path: get-player-score/{ID}
+          method: GET
+          cors: true
+  createPlayerScore:
+    handler: lambdas/endpoints/createPlayerScore.handler
+    events:
+      - http:
+          path: create-player-score/{ID}
+          method: POST
+          cors: true
+  createFile:
+    handler: lambdas/endpoints/createFile.handler
+    events:
+      - http:
+          path: create-file/{fileName}
+          method: POST
+          cors: true
+  getFile:
+    handler: lambdas/endpoints/getFile.handler
+    events:
+      - http:
+          path: get-file/{fileName}
+          method: GET
+          cors: true
+  sendEmail:
+    handler: lambdas/endpoints/sendEmail.handler
+    events:
+      - http:
+          path: send-email
+          method: POST
+          cors: true
+
+  proxy:
+    handler: lambdas/endpoints/proxy.handler
+    events:
+      - http:
+          path: chuck-norris/{proxy+}
+          method: ANY
+          integration: http-proxy
+          request:
+            uri: https://v2.jokeapi.dev/joke/{proxy}
+            parameters:
+              paths:
+                proxy: true
 
 resources:
   Resources:
-    ReactAppBucket:
+    DemoBucketUpload:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.bucketName}
-        AccessControl: PublicRead
-        WebsiteConfiguration:
-          IndexDocument: index.html
-          ErrorDocument: index.html
-    S3AccessPolicy:
-      Type: AWS::S3::BucketPolicy
+    MyDynamoDbTable:
+      Type: AWS::DynamoDB::Table
       Properties:
-        Bucket:
-          Ref: ReactAppBucket
-        PolicyDocument:
+        TableName: ${self:custom.tableName}
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    MyAssumeRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
           Statement:
-            - Sid: PublicReadGetObject
-              Effect: Allow
-              Principal: "*"
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+                  - apigateway.amazonaws.com
               Action:
-                - s3:GetObject
-              Resource: arn:aws:s3:::${self:custom.bucketName}/*
-    CloudFrontDistribution:
-      Type: AWS::CloudFront::Distribution
-      Properties:
-        DistributionConfig:
-          PriceClass: PriceClass_100
-          Origins:
-            - DomainName: ${self:custom.bucketName}.s3.amazonaws.com
-              Id: ReactApp
-              CustomOriginConfig:
-                HTTPPort: 80
-                HTTPSPort: 443
-                OriginProtocolPolicy: https-only
-          Enabled: true
-          DefaultRootObject: index.html
-          CustomErrorResponses:
-            - ErrorCode: 404
-              ResponseCode: 200
-              ResponsePagePath: /index.html
-          DefaultCacheBehavior:
-            AllowedMethods:
-              - DELETE
-              - GET
-              - HEAD
-              - OPTIONS
-              - PATCH
-              - POST
-              - PUT
-            TargetOriginId: ReactApp
-            ForwardedValues:
-              QueryString: false
-              Cookies:
-                Forward: none
-            ViewerProtocolPolicy: redirect-to-https
-          ViewerCertificate:
-            CloudFrontDefaultCertificate: true
+                - sts:AssumeRole
