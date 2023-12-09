@@ -10,7 +10,6 @@ provider:
   region: us-east-1
   environment:
     tableName: ${self:custom.tableName}
-    bucketName: ${self:custom.bucketName}
   stage: dev
   iam:
     role:
@@ -18,110 +17,36 @@ provider:
         - Effect: "Allow"
           Action:
             - dynamodb:*
-            - s3:*
-            - ses:*
           Resource: "*"
-  apiGateway:
-    apiKeys:
-      - free:
-          - name: "x-api-key-free"
-      - paid:
-          - name: "x-api-key-paid"
-    usagePlan:
-      - free:
-          quota:
-            limit: 5000
-            period: MONTH
-          throttle:
-            burstLimit: 200
-            rateLimit: 100
-      - paid:
-          quota:
-            limit: 50000
-            period: MONTH
-          throttle:
-            burstLimit: 2000
-            rateLimit: 1000
-
-package:
-  individually: true
-
-plugins:
-  - serverless-s3-sync
-  - serverless-webpack
 
 custom:
-  tableName: player-points-931988
-  bucketName: serverless-tutorial-project-931988
-  s3Sync:
-    - bucketName: ${self:custom.bucketName}
-      localDir: UploadData
+  tableName: websocket-users-931988
 
 functions:
-  getUser:
-    handler: lambdas/endpoints/getUser.handler
+  websocket-connect:
+    handler: lambdas/websockets/connect.handler
     events:
-      - http:
-          path: get-user/{ID}
-          method: GET
-          cors: true
-          private: true
-  getPlayerScore:
-    handler: lambdas/endpoints/getPlayerScore.handler
+      - websocket:
+          route: $connect
+  websocket-disconnect:
+    handler: lambdas/websockets/disconnect.handler
     events:
-      - http:
-          path: get-player-score/{ID}
-          method: GET
-          cors: true
-  createPlayerScore:
-    handler: lambdas/endpoints/createPlayerScore.handler
+      - websocket:
+          route: $disconnect
+  websocket-default:
+    handler: lambdas/websockets/default.handler
     events:
-      - http:
-          path: create-player-score/{ID}
-          method: POST
-          cors: true
-  createFile:
-    handler: lambdas/endpoints/createFile.handler
+      - websocket:
+          route: $default
+  websocket-message:
+    handler: lambdas/websockets/message.handler
     events:
-      - http:
-          path: create-file/{fileName}
-          method: POST
-          cors: true
-  getFile:
-    handler: lambdas/endpoints/getFile.handler
-    events:
-      - http:
-          path: get-file/{fileName}
-          method: GET
-          cors: true
-  sendEmail:
-    handler: lambdas/endpoints/sendEmail.handler
-    events:
-      - http:
-          path: send-email
-          method: POST
-          cors: true
-
-  proxy:
-    handler: lambdas/endpoints/proxy.handler
-    events:
-      - http:
-          path: chuck-norris/{proxy+}
-          method: ANY
-          integration: http-proxy
-          request:
-            uri: https://v2.jokeapi.dev/joke/{proxy}
-            parameters:
-              paths:
-                proxy: true
+      - websocket:
+          route: message
 
 resources:
   Resources:
-    DemoBucketUpload:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:custom.bucketName}
-    MyDynamoDbTable:
+    WebsocketUserTable:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.tableName}
@@ -132,16 +57,3 @@ resources:
           - AttributeName: ID
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-    MyAssumeRole:
-      Type: AWS::IAM::Role
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service:
-                  - lambda.amazonaws.com
-                  - apigateway.amazonaws.com
-              Action:
-                - sts:AssumeRole
