@@ -86,3 +86,13 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/send-email'
 ```bash
 curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris/ANY'
 ```
+
+## websocket
+
+#### endpoints:
+
+- WSS - wss://returned-amazon-base-url
+
+#### online tool for testing:
+
+- https://websocketking.com/
