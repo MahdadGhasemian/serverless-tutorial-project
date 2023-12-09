@@ -1,13 +1,13 @@
-const { userHooks, logEvent, parseEvent, handleUnexpectedError } = require("lambda-hooks")
+const { useHooks, logEvent, parseEvent, handleUnexpectedError } = require("lambda-hooks")
 
-const withHooks = userHooks({
+const withHooks = useHooks({
     before: [logEvent, parseEvent],
     after: [],
     onError: [handleUnexpectedError]
 })
 
 const hooksWithValidation = ({ bodySchema, pathSchema }) => {
-    return userHooks(
+    return useHooks(
         {
             before: [logEvent, parseEvent, validateEventBody, validatePaths],
             after: [],
