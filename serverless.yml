@@ -8,21 +8,71 @@ provider:
   profile: serverlessUser
   region: us-east-1
   stage: dev
-  iam:
-    role:
-      statements:
-        - Effect: "Allow"
-          Action:
-            - ses:*
-          Resource: "*"
 
-functions:
-  sendReminder:
-    handler: lambdas/scheduleTasks/reminderEmail.handler
-    events:
-      - schedule: cron(0 8 ? * * *)
+plugins:
+  - serverless-s3-sync
 
-  sendMorningNews:
-    handler: lambdas/scheduleTasks/morningNews.handler
-    events:
-      - schedule: cron(15 8 ? * * *)
+custom:
+  bucketName: serverless-react-app-931988
+  s3Sync:
+    - bucketName: ${self:custom.bucketName}
+      localDir: demo-app/build/
+
+resources:
+  Resources:
+    ReactAppBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucketName}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+    S3AccessPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        PolicyDocument:
+          Bucket:
+            Ref: ReactAppBucket
+          PolicyDocument:
+            Statement:
+              - Sid: PublicReadGetObject
+                Effect: Allow
+                Principal: "*"
+                Acction:
+                  - s3:GetObject
+                Resource: arn:aws:s3:::${self:custom.bucketName}/*
+    CloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Origins:
+            - DomainName: ${custom:self.bucketName}.s3.amazonaws.com
+              id: ReactApp
+              CustomOriginConfig:
+                HTTPPort: 80
+                HTTPSPort: 443
+                OriginProtocolPolicy: https-only
+          Enabled: true
+          DefaultRootObject: index.html
+          CustomErrorResponses:
+            - ErrorCode: 404
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+          DefaultCacheBehavior:
+            AllowedMethods:
+              - DELETE
+              - GET
+              - HEAD
+              - OPTIONS
+              - PATCH
+              - POST
+              - PUT
+            TargetOriginId: ReactApp
+            ForwardedValues:
+              QueryString: false
+              Cookies:
+                Forward: none
+            ViewerProtocolPolicy: redirect-to-https
+          ViewerCertificate:
+            CloudFrontDefaultCertificate: true
