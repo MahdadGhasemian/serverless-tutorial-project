@@ -20,4 +20,4 @@ functions:
   sendReminder:
     handler: lambdas/scheduleTasks/reminderEmail.handler
     events:
-      - schedule: corn(0 8 ? * 7 *)
+      - schedule: corn(0 8 ? * * *)
