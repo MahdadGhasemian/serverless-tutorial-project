@@ -27,24 +27,24 @@ Some example to run serverless api (AWS)
 
 #### endpoints:
 
-- GET - https://returned-amazon-base-url/dev/get-user/{ID}
+- GET - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-user/{ID}
 
 ```bash
-curl --location --request GET 'https://returned-amazon-base-url/dev/get-user/1234' \
+curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-user/1234' \
     --header 'x-api-key: returned_api_key'
 ```
 
-- GET - https://returned-amazon-base-url/dev/get-player-score/{ID}
+- GET - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-player-score/{ID}
 
 ```bash
-curl --location --request GET 'https://returned-amazon-base-url/dev/get-user/1234' \
+curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-user/1234' \
     --header 'x-api-key: returned_api_key'
 ```
 
-- POST - https://returned-amazon-base-url/dev/create-player-score/{ID}
+- POST - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/create-player-score/{ID}
 
 ```bash
-curl --location --request POST 'https://returned-amazon-base-url/dev/create-player-score/4521545' \
+curl --location --request POST 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/create-player-score/4521545' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "Name": "Sarah",
@@ -52,26 +52,26 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/create-play
     }'
 ```
 
-- POST - https://returned-amazon-base-url/dev/create-file/{fileName}
+- POST - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/create-file/{fileName}
 
 ```bash
-curl --location --request POST 'https://returned-amazon-base-url/dev/create-file/car2.json' \
+curl --location --request POST 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/create-file/car2.json' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "color": "Red"
     }'
 ```
 
-- GET - https://returned-amazon-base-url/dev/get-file/{fileName}
+- GET - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-file/{fileName}
 
 ```bash
-curl --location --request GET 'https://returned-amazon-base-url/dev/get-file/car2.json'
+curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-file/car2.json'
 ```
 
-- POST - https://returned-amazon-base-url/dev/send-email
+- POST - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/send-email
 
 ```bash
-curl --location --request POST 'https://returned-amazon-base-url/dev/send-email' \
+curl --location --request POST 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/send-email' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "to": "example@gmail.com",
@@ -81,17 +81,17 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/send-email'
     }'
 ```
 
-- ANY - https://returned-amazon-base-url/dev/chuck-norris/{proxy+}
+- ANY - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/chuck-norris/{proxy+}
 
 ```bash
-curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris/ANY'
+curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/chuck-norris/ANY'
 ```
 
 ## Websocket
 
 #### endpoints:
 
-- WSS - wss://returned-amazon-base-url/dev
+- WSS - wss://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev
 
 #### online tool for testing:
 
@@ -107,10 +107,10 @@ curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris
 
 #### endpoints:
 
-- POST - https://returned-amazon-base-url/dev/send-sms
+- POST - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/send-sms
 
 ```bash
-curl --location --request POST 'https://returned-amazon-base-url/dev/send-sms' \
+curl --location --request POST 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/send-sms' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "phoneNumber": "+your-phone-number",
@@ -122,10 +122,10 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/send-sms' \
 
 #### endpoints:
 
-- POST - https://returned-amazon-base-url/dev/analyse
+- POST - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/analyse
 
 ```bash
-curl --location --request POST 'https://returned-amazon-base-url/dev/analyse' \
+curl --location --request POST 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/analyse' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "text": "This is a simple text to test the api"
@@ -142,3 +142,10 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/analyse' \
 ## Hooks
 
 - The 'createPlayerScore.js' and 'getPlayerScore.js' files have been changed to use hooks.
+
+## Update Dynamodb
+
+- PUT - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/update-player-score/{ID}
+```bash
+curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-player-score/1234'
+```
