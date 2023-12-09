@@ -18,7 +18,7 @@ Some example to run serverless api (AWS)
 
 # Branches
 
-## basic:
+## Basic
 
 #### api keys:
 
@@ -87,12 +87,29 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/send-email'
 curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris/ANY'
 ```
 
-## websocket
+
+## Websocket
 
 #### endpoints:
 
-- WSS - wss://returned-amazon-base-url
+- WSS - wss://returned-amazon-base-url/dev
 
 #### online tool for testing:
 
 - https://websocketking.com/
+
+
+## SMS
+
+#### endpoints:
+
+- POST - https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/send-sms
+
+```bash
+curl --location --request POST 'https://returned-amazon-base-url/dev/send-sms' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "phoneNumber": "+your-phone-number",
+        "message": "This is a message from my serverless API!"
+    }'
+```
