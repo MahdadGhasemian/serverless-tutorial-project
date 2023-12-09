@@ -14,10 +14,8 @@ const pathSchema = yup.object().shape({
 })
 
 const handler = async event => {
-    console.log("Heree=============================================")
     let ID = event.pathParameters.ID;
     const { score } = event.body
-    console.log(event.pathParameters)
 
     const res = await Dynamo.update({
         tableName,

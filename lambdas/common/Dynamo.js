@@ -16,7 +16,6 @@ const Dynamo = {
         if (!data || !data.Item) {
             throw Error(`There was an error fetching the data for ID of ${ID}, from ${TableName}`)
         }
-        console.log(data);
 
         return data.Item;
     },
@@ -41,9 +40,8 @@ const Dynamo = {
     },
 
     async update({ tableName, primaryKey, primaryKeyValue, updateKey, updateValue }) {
-        console.log({ tableName, primaryKey, primaryKeyValue, updateKey, updateValue })
         const params = {
-            tableName,
+            TableName: tableName,
             Key: {
                 [primaryKey]: primaryKeyValue
             },
