@@ -21,3 +21,8 @@ functions:
     handler: lambdas/scheduleTasks/reminderEmail.handler
     events:
       - schedule: cron(0 8 ? * * *)
+
+  sendMorningNews:
+    handler: lambdas/scheduleTasks/morningNews.handler
+    events:
+      - schedule: cron(15 8 ? * * *)
