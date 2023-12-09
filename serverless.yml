@@ -31,17 +31,16 @@ resources:
     S3AccessPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
+        Bucket:
+          Ref: ReactAppBucket
         PolicyDocument:
-          Bucket:
-            Ref: ReactAppBucket
-          PolicyDocument:
-            Statement:
-              - Sid: PublicReadGetObject
-                Effect: Allow
-                Principal: "*"
-                Action:
-                  - s3:GetObject
-                Resource: arn:aws:s3:::${self:custom.bucketName}/*
+          Statement:
+            - Sid: PublicReadGetObject
+              Effect: Allow
+              Principal: "*"
+              Action:
+                - s3:GetObject
+              Resource: arn:aws:s3:::${self:custom.bucketName}/*
     CloudFrontDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
