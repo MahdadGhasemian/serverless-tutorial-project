@@ -48,7 +48,7 @@ resources:
         DistributionConfig:
           Origins:
             - DomainName: ${custom:self.bucketName}.s3.amazonaws.com
-              id: ReactApp
+              Id: ReactApp
               CustomOriginConfig:
                 HTTPPort: 80
                 HTTPSPort: 443
