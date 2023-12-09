@@ -39,7 +39,7 @@ resources:
               - Sid: PublicReadGetObject
                 Effect: Allow
                 Principal: "*"
-                Acction:
+                Action:
                   - s3:GetObject
                 Resource: arn:aws:s3:::${self:custom.bucketName}/*
     CloudFrontDistribution:
