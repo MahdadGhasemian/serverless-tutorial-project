@@ -2,6 +2,8 @@ service: serverless-tutorial-project
 
 frameworkVersion: "3"
 
+configValidationMode: "error"
+
 provider:
   name: aws
   runtime: nodejs18.x
