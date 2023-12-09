@@ -63,7 +63,7 @@ const getNews = async () => {
         }
     }
 
-    const { data: newsData } = await Axios.get(`${newsURL} /v2/top - headlines`, options)
+    const { data: newsData } = await Axios.get(`${newsURL}/v2/top-headlines`, options)
 
     if (!newsData) {
         throw Error('no data from new api')
