@@ -87,7 +87,6 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/send-email'
 curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris/ANY'
 ```
 
-
 ## Websocket
 
 #### endpoints:
@@ -98,12 +97,17 @@ curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris
 
 - https://websocketking.com/
 
+#### example json data to send
+
+```json
+{ "message": "Hey this is a websocket message!", "action": "message" }
+```
 
 ## SMS
 
 #### endpoints:
 
-- POST - https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/send-sms
+- POST - https://returned-amazon-base-url/dev/send-sms
 
 ```bash
 curl --location --request POST 'https://returned-amazon-base-url/dev/send-sms' \
@@ -118,11 +122,16 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/send-sms' \
 
 #### endpoints:
 
-- POST - https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/analyse
+- POST - https://returned-amazon-base-url/dev/analyse
+
 ```bash
-curl --location --request POST 'https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/analyse' \
+curl --location --request POST 'https://returned-amazon-base-url/dev/analyse' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "text": "This is a simple text to test the api"
     }'
 ```
+
+## Cron
+
+[Cron Format](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html)
