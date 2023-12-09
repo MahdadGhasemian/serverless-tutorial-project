@@ -103,7 +103,7 @@ curl --location --request GET 'https://returned-amazon-base-url/dev/chuck-norris
 
 #### endpoints:
 
-- POST - https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/send-sms
+- POST - https://https://returned-amazon-base-url/dev/send-sms
 
 ```bash
 curl --location --request POST 'https://returned-amazon-base-url/dev/send-sms' \
@@ -118,9 +118,9 @@ curl --location --request POST 'https://returned-amazon-base-url/dev/send-sms' \
 
 #### endpoints:
 
-- POST - https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/analyse
+- POST - https://https://returned-amazon-base-url/dev/analyse
 ```bash
-curl --location --request POST 'https://k9lmbf1r7c.execute-api.us-east-1.amazonaws.com/dev/analyse' \
+curl --location --request POST 'https://https://returned-amazon-base-url/dev/analyse' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "text": "This is a simple text to test the api"
