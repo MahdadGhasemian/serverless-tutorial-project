@@ -149,3 +149,10 @@ curl --location --request POST 'https://xxxxxxx.execute-api.us-east-1.amazonaws.
 ```bash
 curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-player-score/1234'
 ```
+
+## Query
+
+GET - https://i8cat155y5.execute-api.us-east-1.amazonaws.com/dev/get-game-scores/{game}
+```bash
+curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-game-scores/gamename'
+```
