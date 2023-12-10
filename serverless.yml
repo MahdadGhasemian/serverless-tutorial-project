@@ -8,6 +8,7 @@ provider:
   profile: serverlessUser
   region: us-east-1
   environment:
+    bucketName: ${self:custom.bucketName}
     imageUploadBucket: ${self:custom.imageUploadBucket}
     region: ${self:provider.region}
   stage: dev
@@ -18,6 +19,7 @@ provider:
           Action:
             - dynamodb:*
             - s3:*
+            - ses:*
           Resource: "*"
 
 package:
@@ -27,7 +29,11 @@ plugins:
   - serverless-s3-sync
 
 custom:
-  imageUploadBucket: image-upload-931988
+  bucketName: serverless-tutorial-project-share-931988
+  imageUploadBucket: serverless-tutorial-project-image-upload-931988
+  s3Sync:
+    - bucketName: ${self:custom.bucketName}
+      localDir: UploadData
 
 functions:
   imageUpload:
@@ -40,6 +46,10 @@ functions:
 
 resources:
   Resources:
+    ShareBucketUpload:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucketName}
     ImageBucketUpload:
       Type: AWS::S3::Bucket
       Properties:
