@@ -8,7 +8,8 @@ provider:
   profile: serverlessUser
   region: us-east-1
   environment:
-    orderTableName: ${self:custom.orderTableName}
+    imageUploadBucket: ${self:custom.imageUploadBucket}
+    region: ${self:provider.region}
   stage: dev
   iam:
     role:
@@ -17,35 +18,27 @@ provider:
           Action:
             - dynamodb:*
             - s3:*
-            - ses:*
-            - lex:*
           Resource: "*"
 
 package:
   individually: true
 
 custom:
-  orderTableName: order-931988
+  imageUploadBucket: image-upload-931988
 
 functions:
-  telegramToLex:
-    handler: lambdas/endpoints/telegramToLex.handler
+  imageUpload:
+    handler: lambdas/endpoints/imageUpload.handler
     events:
       - http:
-          path: telegram-webhook
+          path: image-upload
           method: POST
           cors: true
 
 resources:
   Resources:
-    OrderTable:
-      Type: AWS::DynamoDB::Table
+    ImageBucketUpload:
+      Type: AWS::S3::Bucket
       Properties:
-        TableName: ${self:custom.orderTableName}
-        AttributeDefinitions:
-          - AttributeName: ID
-            AttributeType: S
-        KeySchema:
-          - AttributeName: ID
-            KeyType: HASH
-        BillingMode: PAY_PER_REQUEST
+        BucketName: ${self:custom.imageUploadBucket}
+        AccessControl: PublicRead
