@@ -2,7 +2,7 @@ const AWS = require("aws-sdk")
 const Axios = require("axios")
 const Responses = require("../common/API_Responses")
 
-const lexruntime = new AWS.LexRuntim();
+const lexruntime = new AWS.LexRuntime();
 
 exports.handler = async event => {
     try {
