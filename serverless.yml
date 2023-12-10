@@ -23,6 +23,9 @@ provider:
 package:
   individually: true
 
+plugins:
+  - serverless-s3-sync
+
 custom:
   imageUploadBucket: image-upload-931988
 

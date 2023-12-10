@@ -196,3 +196,9 @@ curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.c
 
 **Note:** If you encounter an error as follows, you can switch to the old console (**AWS Lex console 1**)
 -  There is no alias named dev for the bot named botTelegram. Choose another alias
+
+## Image upload
+
+#### endpoint:
+
+- 
