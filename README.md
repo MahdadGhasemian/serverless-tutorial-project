@@ -156,3 +156,17 @@ GET - https://i8cat155y5.execute-api.us-east-1.amazonaws.com/dev/get-game-scores
 ```bash
 curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-game-scores/gamename'
 ```
+
+## Step Functions
+
+#### Data for test execution
+```json
+{
+  "signup": {
+    "email": "devopsuser1988@gmail.com"
+  }
+}
+```
+
+![step-functions](https://github.com/MahdadGhasemian/serverless-tutorial-project/assets/48379992/6dedbdcd-0ced-4ca4-a453-f276f1263e37)
+
