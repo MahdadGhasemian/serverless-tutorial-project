@@ -131,11 +131,11 @@ functions:
           cors: true
 
   addSignup:
-    handler: lambdas/stepFunctionLambas/addSignup.handler
+    handler: lambdas/stepFunctionLambdas/addSignup.handler
   getSignup:
-    handler: lambdas/stepFunctionLambas/getSignup.handler
+    handler: lambdas/stepFunctionLambdas/getSignup.handler
   sendReminderEmail:
-    handler: lambdas/stepFunctionLambas/sendReminderEmail.handler
+    handler: lambdas/stepFunctionLambdas/sendReminderEmail.handler
 
   proxy:
     handler: lambdas/endpoints/proxy.handler
