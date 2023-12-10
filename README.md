@@ -152,7 +152,9 @@ curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.c
 
 ## Query
 
-GET - https://i8cat155y5.execute-api.us-east-1.amazonaws.com/dev/get-game-scores/{game}
+#### endpoint:
+
+- GET - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-game-scores/{game}
 ```bash
 curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/get-game-scores/gamename'
 ```
@@ -171,4 +173,26 @@ curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.c
 ![step-functions](https://github.com/MahdadGhasemian/serverless-tutorial-project/assets/48379992/6dedbdcd-0ced-4ca4-a453-f276f1263e37)
 
 
+## Telegram Bot (Lex)
 
+#### endpoint:
+
+- POST - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/telegram-webhook
+
+#### Telegram:
+    Channel name to create a bot: "@botfather"
+    botname format: yourBootNameBot
+    username format: yourBootName_Bot
+    api: xxxxx_your_telegram_api
+    set-webhook:
+```bash
+    curl --request POST \
+    --url https://api.telegram.org/botxxxxx_your_telegram_api/setWebhook \
+    --header 'content-type: application/json' \
+    --data '{"url": "https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/telegram-webhook"}'
+```
+
+![image](https://github.com/MahdadGhasemian/serverless-tutorial-project/assets/48379992/b71417e1-acdf-4dbc-99ce-ebb8b7196689)
+
+**Note:** If you encounter an error as follows, you can switch to the old console (**AWS Lex console 1**)
+-  There is no alias named dev for the bot named botTelegram. Choose another alias

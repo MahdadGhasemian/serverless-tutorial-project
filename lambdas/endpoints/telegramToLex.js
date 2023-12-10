@@ -41,7 +41,7 @@ const mapLexToTelegram = (lexResponse, body) => {
 }
 
 const sendToTelegram = message => {
-    const token = '6373162870:AAFM1XYEXwjXy7Sd1yKwUWUOn3eTelszGC8';
+    const token = 'YOUR-TELEGRAM-TOKEN';
     const telegramURL = `https://api.telegram.org/bot${token}/sendMessage`
 
     return Axios.post(telegramURL, message)
