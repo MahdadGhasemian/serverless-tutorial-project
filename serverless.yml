@@ -26,14 +26,11 @@ package:
   individually: true
 
 plugins:
-  - serverless-s3-sync
+  - serverless-webpack
 
 custom:
   bucketName: serverless-tutorial-project-share-931988
   imageUploadBucket: serverless-tutorial-project-image-upload-931988
-  s3Sync:
-    - bucketName: ${self:custom.bucketName}
-      localDir: UploadData
 
 functions:
   imageUpload:
