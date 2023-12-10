@@ -2,7 +2,7 @@ const AWS = require("aws-sdk")
 const Axios = require("axios")
 const Responses = require("../common/API_Responses")
 
-const lexruntime = new AWS.LexRuntime();
+const lexruntime = new AWS.LexRuntim();
 
 exports.handler = async event => {
     try {
@@ -28,7 +28,7 @@ const mapTelegramToLex = body => {
         inputText: message,
         userId: chatID,
         botName: 'telegramBot',
-        botAlias: '$LATEST',
+        botAlias: 'dev',
         sessionAttributes: {}
     }
 }
