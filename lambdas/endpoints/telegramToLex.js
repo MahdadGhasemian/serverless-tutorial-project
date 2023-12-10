@@ -27,8 +27,8 @@ const mapTelegramToLex = body => {
     return {
         inputText: message,
         userId: chatID,
-        botName: 'telegramBot',
-        botAlias: 'test',
+        botName: 'botTelegram',
+        botAlias: 'dev',
         sessionAttributes: {}
     }
 }
