@@ -8,7 +8,7 @@ provider:
   profile: serverlessUser
   region: us-east-1
   environment:
-    signupTableName: ${self:custom.signupTableName}
+    orderTableName: ${self:custom.orderTableName}
   stage: dev
   iam:
     role:
@@ -18,45 +18,30 @@ provider:
             - dynamodb:*
             - s3:*
             - ses:*
+            - lex:*
           Resource: "*"
 
 package:
   individually: true
 
-plugins:
-  - serverless-step-functions
-
 custom:
-  signupTableName: signup-931988
-
-stepFunctions:
-  validate: true
-  stateMachines:
-    reminderEmail:
-      name: reminderEmail
-      events:
-        - http:
-            path: singup-with-reminders
-            method: POST
-            cors: true
-      definition: ${file(./stepFunction.yml)}
+  orderTableName: order-931988
 
 functions:
-  addSignup:
-    handler: lambdas/stepFunctionLambdas/addSignup.handler
-  getSignup:
-    handler: lambdas/stepFunctionLambdas/getSignup.handler
-  sendReminderEmail:
-    handler: lambdas/stepFunctionLambdas/sendReminderEmail.handler
-  nothing:
-    handler: lambdas/stepFunctionLambdas/nothing.handler
+  telegramToLex:
+    handler: lambdas/endpoints/telegramToLex.handler
+    events:
+      - http:
+          path: telegram-webhook
+          method: POST
+          cors: true
 
 resources:
   Resources:
-    MyEmailSignupTable:
+    OrderTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.signupTableName}
+        TableName: ${self:custom.orderTableName}
         AttributeDefinitions:
           - AttributeName: ID
             AttributeType: S
