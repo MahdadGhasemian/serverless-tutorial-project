@@ -201,4 +201,4 @@ curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.c
 
 #### endpoint:
 
-- 
+- POST - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/image-upload
