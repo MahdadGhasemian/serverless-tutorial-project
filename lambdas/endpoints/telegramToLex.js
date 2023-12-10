@@ -4,7 +4,7 @@ const Responses = require("../common/API_Responses")
 
 const lexruntime = new AWS.LexRuntime();
 
-exports.hendler = async event => {
+exports.handler = async event => {
     try {
         const body = JSON.parse(event.body)
         console.log('body: ', body)
