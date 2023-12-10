@@ -55,18 +55,21 @@ custom:
   tableName: player-points-931988
   signupTableName: signup-931988
   bucketName: serverless-tutorial-project-931988
+  s3Sync:
+    - bucketName: ${self:custom.bucketName}
+      localDir: UploadData
 
-stepFunctions:
-  validate: true
-  stateMachines:
-    reminderEmail:
-      name: reminderEmail
-      events:
-        - http:
-            path: singup-with-reminders
-            method: POST
-            cors: true
-      definition: ${file(./stepFunction.yml)}
+# stepFunctions:
+#   validate: true
+#   stateMachines:
+#     reminderEmail:
+#       name: reminderEmail
+#       events:
+#         - http:
+#             path: singup-with-reminders
+#             method: POST
+#             cors: true
+#       definition: ${file(./stepFunction.yml)}
 
 functions:
   getUser:
