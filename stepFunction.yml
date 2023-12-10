@@ -109,7 +109,7 @@ States:
               [
                 "arn:aws:lambda:us-east-1",
                 { "Ref": "AWS::AccountID" },
-                "function:${self:service}-${self:provider.state}-addSignup",
+                "function:${self:service}-${self:provider.state}-nothing",
               ],
             ],
         }

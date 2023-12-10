@@ -59,17 +59,17 @@ custom:
     - bucketName: ${self:custom.bucketName}
       localDir: UploadData
 
-# stepFunctions:
-#   validate: true
-#   stateMachines:
-#     reminderEmail:
-#       name: reminderEmail
-#       events:
-#         - http:
-#             path: singup-with-reminders
-#             method: POST
-#             cors: true
-#       definition: ${file(./stepFunction.yml)}
+stepFunctions:
+  validate: true
+  stateMachines:
+    reminderEmail:
+      name: reminderEmail
+      events:
+        - http:
+            path: singup-with-reminders
+            method: POST
+            cors: true
+      definition: ${file(./stepFunction.yml)}
 
 functions:
   getUser:
@@ -136,6 +136,8 @@ functions:
     handler: lambdas/stepFunctionLambdas/getSignup.handler
   sendReminderEmail:
     handler: lambdas/stepFunctionLambdas/sendReminderEmail.handler
+  nothing:
+    handler: lambdas/stepFunctionLambdas/nothing.handler
 
   proxy:
     handler: lambdas/endpoints/proxy.handler
