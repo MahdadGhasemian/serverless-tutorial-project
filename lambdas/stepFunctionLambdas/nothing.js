@@ -1,4 +1,4 @@
-exports.hander = async event => {
+exports.handler = async event => {
     console.log("event", event)
 
     return;

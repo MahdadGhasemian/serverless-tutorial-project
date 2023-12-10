@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const tableName = process.env.signupTableName;
 
-exports.hander = async event => {
+exports.handler = async event => {
     console.log("event", event)
 
     const email = event.Input.signup.email;

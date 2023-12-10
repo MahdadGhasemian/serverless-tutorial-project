@@ -2,7 +2,7 @@ const Dynamo = require("../common/Dynamo")
 
 const tableName = process.env.signupTableName;
 
-exports.hander = async event => {
+exports.handler = async event => {
     console.log("event", event)
 
     const ID = event.Input.Payload.ID;
