@@ -7,18 +7,19 @@ States:
     Resource: arn:aws:states:::lambda:invoke
     OutputPath: "$.Payload"
     Parameters:
-      FunctionName:
-        {
-          "Fn::Join":
-            [
-              ":",
-              [
-                "arn:aws:lambda:us-east-1",
-                { "Ref": "AWS::AccountID" },
-                "function:${self:service}-${self:provider.state}-addSignup",
-              ],
-            ],
-        }
+      FunctionName: "arn:aws:lambda:us-east-1:305705019898:function:serverless-tutorial-project-dev-addSignup:$LATEST"
+      # FunctionName:
+      #   {
+      #     "Fn::Join":
+      #       [
+      #         ":",
+      #         [
+      #           "arn:aws:lambda:us-east-1",
+      #           { "Ref": "AWS::AccountID" },
+      #           "function:${self:service}-${self:provider.state}-addSignup",
+      #         ],
+      #       ],
+      #   }
       Payload.$: "$"
     Retry:
       - ErrorEquals:
@@ -39,18 +40,19 @@ States:
     Resource: arn:aws:states:::lambda:invoke
     OutputPath: "$.Payload"
     Parameters:
-      FunctionName:
-        {
-          "Fn::Join":
-            [
-              ":",
-              [
-                "arn:aws:lambda:us-east-1",
-                { "Ref": "AWS::AccountID" },
-                "function:${self:service}-${self:provider.state}-getSignup",
-              ],
-            ],
-        }
+      FunctionName: "arn:aws:lambda:us-east-1:305705019898:function:serverless-tutorial-project-dev-getSignup:$LATEST"
+      # FunctionName:
+      #   {
+      #     "Fn::Join":
+      #       [
+      #         ":",
+      #         [
+      #           "arn:aws:lambda:us-east-1",
+      #           { "Ref": "AWS::AccountID" },
+      #           "function:${self:service}-${self:provider.state}-getSignup",
+      #         ],
+      #       ],
+      #   }
       Payload.$: "$"
     Retry:
       - ErrorEquals:
@@ -74,18 +76,19 @@ States:
     Resource: arn:aws:states:::lambda:invoke
     OutputPath: "$.Payload"
     Parameters:
-      FunctionName:
-        {
-          "Fn::Join":
-            [
-              ":",
-              [
-                "arn:aws:lambda:us-east-1",
-                { "Ref": "AWS::AccountID" },
-                "function:${self:service}-${self:provider.state}-sendReminderEmail",
-              ],
-            ],
-        }
+      FunctionName: "arn:aws:lambda:us-east-1:305705019898:function:serverless-tutorial-project-dev-sendReminderEmail:$LATEST"
+      # FunctionName:
+      #   {
+      #     "Fn::Join":
+      #       [
+      #         ":",
+      #         [
+      #           "arn:aws:lambda:us-east-1",
+      #           { "Ref": "AWS::AccountID" },
+      #           "function:${self:service}-${self:provider.state}-sendReminderEmail",
+      #         ],
+      #       ],
+      #   }
     Retry:
       - ErrorEquals:
           - Lambda.ServiceException
@@ -101,18 +104,19 @@ States:
     Resource: arn:aws:states:::lambda:invoke
     OutputPath: "$.Payload"
     Parameters:
-      FunctionName:
-        {
-          "Fn::Join":
-            [
-              ":",
-              [
-                "arn:aws:lambda:us-east-1",
-                { "Ref": "AWS::AccountID" },
-                "function:${self:service}-${self:provider.state}-nothing",
-              ],
-            ],
-        }
+      FunctionName: "arn:aws:lambda:us-east-1:305705019898:function:serverless-tutorial-project-dev-nothing:$LATEST"
+      # FunctionName:
+      #   {
+      #     "Fn::Join":
+      #       [
+      #         ":",
+      #         [
+      #           "arn:aws:lambda:us-east-1",
+      #           { "Ref": "AWS::AccountID" },
+      #           "function:${self:service}-${self:provider.state}-nothing",
+      #         ],
+      #       ],
+      #   }
     Retry:
       - ErrorEquals:
           - Lambda.ServiceException
