@@ -1,129 +1,73 @@
----
-Comment: A Step function to send reminder emails afer 24 hrs
-StartAt: Add Email To DB
+Comment: A step function to send reminder emails after 24 hrs
+StartAt: addEmailToDB
 States:
-  Add Email To DB:
+  addEmailToDB:
     Type: Task
     Resource: arn:aws:states:::lambda:invoke
-    OutputPath: "$.Payload"
     Parameters:
-      FunctionName: "arn:aws:lambda:us-east-1:305705019898:function:serverless-tutorial-project-dev-addSignup:$LATEST"
-      # FunctionName:
-      #   {
-      #     "Fn::Join":
-      #       [
-      #         ":",
-      #         [
-      #           "arn:aws:lambda:us-east-1",
-      #           { "Ref": "AWS::AccountID" },
-      #           "function:${self:service}-${self:provider.state}-addSignup",
-      #         ],
-      #       ],
-      #   }
-      Payload.$: "$"
-    Retry:
-      - ErrorEquals:
-          - Lambda.ServiceException
-          - Lambda.AWSLambdaException
-          - Lambda.SdkClientException
-          - Lambda.TooManyRequestsException
-        IntervalSeconds: 1
-        MaxAttempts: 3
-        BackoffRate: 2
-    Next: Wait for 60sec
-  Wait for 60sec:
+      FunctionName:
+        {
+          "Fn::Join":
+            [
+              ":",
+              [
+                "arn:aws:lambda:eu-west-1",
+                { "Ref": "AWS::AccountId" },
+                "function:${self:service}-${self:provider.stage}-addSignup",
+              ],
+            ],
+        }
+      Payload:
+        Input.$: "$"
+    Next: wait for 24hr
+  wait for 24hr:
     Type: Wait
-    Seconds: 60
+    Seconds: 20
     Next: Read DB
   Read DB:
     Type: Task
     Resource: arn:aws:states:::lambda:invoke
-    OutputPath: "$.Payload"
     Parameters:
-      FunctionName: "arn:aws:lambda:us-east-1:305705019898:function:serverless-tutorial-project-dev-getSignup:$LATEST"
-      # FunctionName:
-      #   {
-      #     "Fn::Join":
-      #       [
-      #         ":",
-      #         [
-      #           "arn:aws:lambda:us-east-1",
-      #           { "Ref": "AWS::AccountID" },
-      #           "function:${self:service}-${self:provider.state}-getSignup",
-      #         ],
-      #       ],
-      #   }
-      Payload.$: "$"
-    Retry:
-      - ErrorEquals:
-          - Lambda.ServiceException
-          - Lambda.AWSLambdaException
-          - Lambda.SdkClientException
-          - Lambda.TooManyRequestsException
-        IntervalSeconds: 1
-        MaxAttempts: 3
-        BackoffRate: 2
-    Next: Has Played
-  Has Played:
+      FunctionName:
+        {
+          "Fn::Join":
+            [
+              ":",
+              [
+                "arn:aws:lambda:eu-west-1",
+                { "Ref": "AWS::AccountId" },
+                "function:${self:service}-${self:provider.stage}-getSignup",
+              ],
+            ],
+        }
+      Payload:
+        Input.$: "$"
+    Next: has played
+  has played:
     Type: Choice
     Choices:
       - Variable: "$.Payload.played"
-        StringMatches: "true"
-        Next: Nothing
-    Default: Send Reminder Email
-  Send Reminder Email:
+        StringEquals: "true"
+        Next: close
+    Default: send reminder email
+  send reminder email:
     Type: Task
     Resource: arn:aws:states:::lambda:invoke
-    OutputPath: "$.Payload"
     Parameters:
-      FunctionName: "arn:aws:lambda:us-east-1:305705019898:function:serverless-tutorial-project-dev-sendReminderEmail:$LATEST"
-      # FunctionName:
-      #   {
-      #     "Fn::Join":
-      #       [
-      #         ":",
-      #         [
-      #           "arn:aws:lambda:us-east-1",
-      #           { "Ref": "AWS::AccountID" },
-      #           "function:${self:service}-${self:provider.state}-sendReminderEmail",
-      #         ],
-      #       ],
-      #   }
-    Retry:
-      - ErrorEquals:
-          - Lambda.ServiceException
-          - Lambda.AWSLambdaException
-          - Lambda.SdkClientException
-          - Lambda.TooManyRequestsException
-        IntervalSeconds: 1
-        MaxAttempts: 3
-        BackoffRate: 2
-    End: true
-  Nothing:
-    Type: Task
-    Resource: arn:aws:states:::lambda:invoke
-    OutputPath: "$.Payload"
-    Parameters:
-      FunctionName: "arn:aws:lambda:us-east-1:305705019898:function:serverless-tutorial-project-dev-nothing:$LATEST"
-      # FunctionName:
-      #   {
-      #     "Fn::Join":
-      #       [
-      #         ":",
-      #         [
-      #           "arn:aws:lambda:us-east-1",
-      #           { "Ref": "AWS::AccountID" },
-      #           "function:${self:service}-${self:provider.state}-nothing",
-      #         ],
-      #       ],
-      #   }
-    Retry:
-      - ErrorEquals:
-          - Lambda.ServiceException
-          - Lambda.AWSLambdaException
-          - Lambda.SdkClientException
-          - Lambda.TooManyRequestsException
-        IntervalSeconds: 1
-        MaxAttempts: 3
-        BackoffRate: 2
-    End: true
+      FunctionName:
+        {
+          "Fn::Join":
+            [
+              ":",
+              [
+                "arn:aws:lambda:eu-west-1",
+                { "Ref": "AWS::AccountId" },
+                "function:${self:service}-${self:provider.stage}-sendReminderEmail",
+              ],
+            ],
+        }
+      Payload:
+        Input.$: "$"
+    Next: close
+  close:
+    Type: Succeed
