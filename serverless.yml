@@ -9,7 +9,7 @@ provider:
   region: us-east-1
   environment:
     tableName: ${self:custom.tableName}
-    signupTableName: ${self:custom:signupTableName}
+    signupTableName: ${self:custom.signupTableName}
     bucketName: ${self:custom.bucketName}
   stage: dev
   iam:
