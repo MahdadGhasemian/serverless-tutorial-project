@@ -62,7 +62,7 @@ custom:
 stepFunctions:
   validate: true
   stateMachines:
-    reminderEmail:
+    stepFunc1:
       name: reminderEmail
       events:
         - http:
