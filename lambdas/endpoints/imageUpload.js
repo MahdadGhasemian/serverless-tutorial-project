@@ -2,7 +2,7 @@
 const Responses = require("../common/API_Responses")
 const { v4: uuidv4 } = require('uuid');
 const AWS = require('aws-sdk');
-import * as fileType from 'file-type';
+import { fileTypeFromFile } from 'file-type';
 
 const s3 = new AWS.S3();
 const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg']
@@ -26,7 +26,7 @@ exports.handler = async event => {
         }
 
         const buffer = Buffer.from(imageData, 'base64')
-        const fileInfo = await fileType.fromBuffer(buffer)
+        const fileInfo = await fileTypeFromFile(buffer)
         const detectedExt = fileInfo.ext
         const detectedMime = fileInfo.mime
 
