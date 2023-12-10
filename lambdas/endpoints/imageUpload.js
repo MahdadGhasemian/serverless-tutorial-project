@@ -1,8 +1,8 @@
 
 const Responses = require("../common/API_Responses")
-const fileType = require("file-type")
 const { v4: uuidv4 } = require('uuid');
 const AWS = require('aws-sdk');
+import * as fileType from 'file-type';
 
 const s3 = new AWS.S3();
 const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg']
