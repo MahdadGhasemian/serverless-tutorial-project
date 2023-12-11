@@ -29,8 +29,8 @@ plugins:
   - serverless-webpack
 
 custom:
-  bucketName: serverless-tutorial-project-share-931988
-  imageUploadBucket: serverless-tutorial-project-image-upload-2-931988
+  bucketName: serverless-tutorial-project-share-3-931988
+  imageUploadBucket: serverless-tutorial-project-image-upload-3-931988
 
 functions:
   imageUpload:
@@ -51,4 +51,40 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.imageUploadBucket}
-        # AccessControl: PublicRead
+        AccessControl: PublicRead
+    # UploadRole:
+    #   Type: AWS::IAM::Role
+    #   Properties:
+    #     AssumeRolePolicyDocument:
+    #       Version: "2012-10-17"
+    #       Statement:
+    #         - Effect: Allow
+    #           Principal:
+    #             Service:
+    #               - lambda.amazonaws.com
+    #           Action: sts:AssumeRole
+    #     Policies:
+    #       - PolicyName: upload-policy
+    #         PolicyDocument:
+    #           Version: "2012-10-17"
+    #           Statement:
+    #             - Effect: Allow
+    #               Action:
+    #                 - s3:PutObject
+    #                 - s3:PutObjectAcl
+    #               Resource:
+    #                 "!Sub"
+    #                   - "arn:aws:s3:::${BucketName}/*"
+    #                   - { BucketName: !Ref ImageBucketUpload }
+    #             - Effect: Allow
+    #               Action:
+    #                 - logs:CreateLogGroup
+    #                 - logs:CreateLogStream
+    #                 - logs:PutLogEvents
+    #               Resource:
+    #                 Fn::Sub:
+    #                   - arn:aws:logs:${Region}:${AccountId}:log-group:/aws/lambda/*:*:*
+    #                   - {
+    #                       Region: !Ref AWS::Region,
+    #                       AccountId: !Ref AWS::AccountId,
+    #                     }
