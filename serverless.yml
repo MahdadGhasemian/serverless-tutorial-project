@@ -8,8 +8,6 @@ provider:
   profile: serverlessUser
   region: us-east-1
   environment:
-    bucketName: ${self:custom.bucketName}
-    imageUploadBucket: ${self:custom.imageUploadBucket}
     region: ${self:provider.region}
   stage: dev
   iam:
@@ -28,44 +26,22 @@ package:
 plugins:
   - serverless-webpack
 
-custom:
-  bucketName: serverless-tutorial-project-share-3-931988
-  imageUploadBucket: serverless-tutorial-project-image-upload-3-931988
-
-functions:
-  imageUpload:
-    handler: lambdas/endpoints/imageUpload.handler
-    events:
-      - http:
-          path: image-upload
-          method: POST
-          cors: true
-
-  imageResize:
-    handler: lambdas/endpoints/imageResize.handler
-    events:
-      - s3:
-          bucket: ${self:custom.imageUploadBucket}
-          event: s3:ObjectCreated:*
-          rules:
-            - prefix: uploads/
-          existing: true
-
 resources:
   Resources:
-    ShareBucketUpload:
-      Type: AWS::S3::Bucket
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
       Properties:
-        BucketName: ${self:custom.bucketName}
-    ImageBucketUpload:
-      Type: AWS::S3::Bucket
+        UserPoolName: ${self:provider.stage}-user-pool
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
       Properties:
-        BucketName: ${self:custom.imageUploadBucket}
-        PublicAccessBlockConfiguration:
-          BlockPublicAcls: false
-        OwnershipControls:
-          Rules:
-            - ObjectOwnership: ObjectWriter
-        WebsiteConfiguration:
-          IndexDocument: index.html
-          ErrorDocument: error.html
+        ClientName: ${self:provider.stage}-user-pool-client
+        UserPoolId:
+          Ref: CognitoUserPool
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH
+        GenerateSecret: false
