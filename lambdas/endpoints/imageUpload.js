@@ -47,7 +47,7 @@ exports.handler = async event => {
             ACL: 'public-read'
         }).promise()
 
-        const url = `https://${process.env.imageUploadBucket}.s3-${process.env.region}.amazonaws.com/${key}`
+        const url = `https://${process.env.imageUploadBucket}.s3.amazonaws.com/${key}`
 
         return Responses._200({
             imageURL: url

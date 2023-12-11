@@ -29,8 +29,8 @@ plugins:
   - serverless-webpack
 
 custom:
-  bucketName: serverless-tutorial-project-share-931988
-  imageUploadBucket: serverless-tutorial-project-image-upload-2-931988
+  bucketName: serverless-tutorial-project-share-3-931988
+  imageUploadBucket: serverless-tutorial-project-image-upload-3-931988
 
 functions:
   imageUpload:
@@ -51,4 +51,11 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.imageUploadBucket}
-        # AccessControl: PublicRead
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: ObjectWriter
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: error.html
