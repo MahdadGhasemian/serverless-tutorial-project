@@ -51,7 +51,7 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.imageUploadBucket}
-        AccessControl: PublicRead
+        # AccessControl: PublicRead
     # UploadRole:
     #   Type: AWS::IAM::Role
     #   Properties:
