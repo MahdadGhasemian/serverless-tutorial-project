@@ -23,9 +23,6 @@ provider:
 package:
   individually: true
 
-plugins:
-  - serverless-webpack
-
 resources:
   Resources:
     CognitoUserPool:
