@@ -206,3 +206,13 @@ curl --location --request GET 'https://xxxxxxx.execute-api.us-east-1.amazonaws.c
 #### Webpage to test
  
 [upload page](https://sls-image-upload-test-bucket.s3-eu-west-1.amazonaws.com/index.html)
+
+## Image upload and resize
+
+#### endpoint:
+
+- POST - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/dev/image-upload
+
+#### Webpage to test
+ 
+[upload page](https://sls-image-upload-test-bucket.s3-eu-west-1.amazonaws.com/index.html)
