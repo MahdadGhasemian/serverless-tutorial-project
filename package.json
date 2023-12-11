@@ -20,6 +20,7 @@
   "dependencies": {
     "axios": "^1.6.2",
     "file-type": "^18.7.0",
+    "jimp": "^0.22.10",
     "lambda-hooks": "^0.2.1",
     "serverless-s3-sync": "^3.2.0",
     "serverless-step-functions": "^3.18.0",

@@ -35,7 +35,7 @@ exports.handler = async event => {
         }
 
         const name = uuidv4();
-        const key = `${name}.${detectedExt}`;
+        const key = `uploads/${name}.${detectedExt}`;
 
         console.log(`writing image to bucket called ${key}`)
 
